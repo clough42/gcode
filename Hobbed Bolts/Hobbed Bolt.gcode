@@ -5,8 +5,8 @@
 #101 = -.275 (clearance Y)
 #102 = -.307 (waist depth)
 #103 = -.346 (tooth depth)
-#104 = -.576 (waist position)
-#105 = [#104 - .0175] (waist cut 1)
+#104 = -.561 (waist position)
+#105 = [#104 - .0175 + .006] (waist cut 1 - last term is compensation for measured width)
 #106 = [#104 + .0175] (waist cut 2)
 #107 = -.420 (waist cut height)
 #108 = -.324 (tooth cut height)
@@ -19,22 +19,21 @@ G20 (inch)
 
 (go to start position)
 G0 Z1
-X#104 Y#101 A0
+X#104 Y#109 A0 (move to clearance position in front)
 G0 Z#107
 
 S2100 M3 (spindle on)
 M7 (mist coolant)
 
 (cut Waist)
-G0 X#104 Y#109 (move to clearance position in front)
 G0 Z#107 (plunge down in front of bolt)
 G1 Y#110 F4 (cut in)
 G1 X#105 F4 (feed over)
 G1 A1 F8.6 (rotate)
 G0 Y#109 (pull out)
-G0 #111 (raise above bolt)
+G0 Z#111 (raise above bolt)
 G0 X#104 Y#101 (move to clearance position in back)
-G0 X#107 (plunge down behind bolt)
+G0 Z#107 (plunge down behind bolt)
 G1 Y#102 F4 (cut in)
 G1 X#106 F4 (feed over)
 G1 A0 F8.6 (rotate again)
